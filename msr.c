@@ -147,6 +147,20 @@ int write_msr(){
     printf("write error %s\n", strerror(errno));
   }
 
+  input2[0] = 0x01;
+  input2[1] = 0x0d;
+  input2[2] = 0x00;
+  input2[3] = 0x00;
+  input2[4] = 0x00;
+  input2[5] = 0x00;
+  input2[6] = 0x00;
+  input2[7] = 0x00;
+
+  // write(fd, input, MSR_SIZE);
+  if(pwrite(fd, input2, sizeof(input2), MSR_ADDR) == -1){
+    printf("write error %s\n", strerror(errno));
+  }
+
   close(fd);
 }
 
