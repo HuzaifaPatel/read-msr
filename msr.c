@@ -131,6 +131,7 @@ int write_msr(){
 
 
   char input[MSR_SIZE];
+  char input2[MSR_SIZE];
 
 
   input[0] = 0x00;
