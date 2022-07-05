@@ -64,8 +64,8 @@ int write_msr(){
 
 
   input[0] = 0x00;
-  input[1] = 0x0d;
-  input[2] = 0x00;
+  input[1] = 0x00;
+  input[2] = 0x0d;
   input[3] = 0x00;
   input[4] = 0x00;
   input[5] = 0x00;
