@@ -12,76 +12,6 @@
 #define MSR_SIZE 8
 
 
-// int read_msr(){
-//   FILE *file = fopen(MSR_PATH, "rb");
-//   if (file == NULL) {
-//     fprintf(stderr, "[!] fopen failed\n");
-//     return 1;
-//   }
-
-//   if (fseek(file, MSR_ADDR, SEEK_SET) != 0) {
-//     fprintf(stderr, "[!] fseek failed\n");
-//     return 2;
-//   }
-
-//   uint8_t buffer[MSR_SIZE];
-
-//   size_t result = fread(buffer, 1, MSR_SIZE, file);
-
-//   if (result != MSR_SIZE) {
-//     fprintf(stderr, "[!] fread failed\n");
-//     return 3;
-//   }
-
-//   for (size_t i = 0; i < MSR_SIZE; ++i) {
-//     printf("%x ", buffer[i]);
-//   }
-//   printf("\n");
-
-//   for (size_t i = 0; i < MSR_SIZE; ++i) {
-//     printf("%c", buffer[i]);
-//   }
-//   printf("\n");
-
-//   fclose(file);
-// }
-
-
-
-
-// int write_msr(){
-//   FILE *file = fopen(MSR_PATH, "wb");
-
-//   if (file == NULL) {
-//     printf("[!] fopen failed\n");
-//     return 1;
-//   }
-
-//   if (fseek(file, MSR_ADDR, SEEK_SET) != 0) {
-//     printf("[!] fseek failed\n");
-//     return 2;
-//   }
-
-//   char input[8];
-
-//   input[0] = 0x00;
-//   input[1] = 0x0d;
-//   input[2] = 0x00;
-//   input[3] = 0x00;
-//   input[4] = 0x00;
-//   input[5] = 0x00;
-//   input[6] = 0x00;
-//   input[7] = 0x00;
-
-//   // fputc(0, file);
-//   fwrite(input, 1, 8, file);
-//   fclose(file);
-
-// }
-
-
-
-
 
 int read_msr(){
   int fd = open(MSR_PATH, O_RDWR);
@@ -148,20 +78,6 @@ int write_msr(){
     printf("write error %s\n", strerror(errno));
   }
 
-  input2[0] = 0x01;
-  input2[1] = 0x0d;
-  input2[2] = 0x00;
-  input2[3] = 0x00;
-  input2[4] = 0x00;
-  input2[5] = 0x00;
-  input2[6] = 0x00;
-  input2[7] = 0x00;
-
-  // write(fd, input, MSR_SIZE);
-  if(pwrite(fd, input2, sizeof(input2), MSR_ADDR) == -1){
-    printf("write error %s\n", strerror(errno));
-  }
-
   close(fd);
 }
 
@@ -170,9 +86,7 @@ int write_msr(){
 
 
 int main() {
-	read_msr();
 	write_msr();
-  read_msr();
 	return 0;
 }
 
